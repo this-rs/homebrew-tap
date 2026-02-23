@@ -11,29 +11,29 @@ class ProjectOrchestrator < Formula
   desc "AI agent orchestrator with Neo4j knowledge graph, Meilisearch, and Tree-sitter"
   homepage "https://github.com/this-rs/project-orchestrator"
   license "MIT"
-  version "0.0.3"
+  version "0.0.4"
 
   on_macos do
     on_arm do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-macos-arm64.tar.gz"
-      sha256 "d05b441627cdf25d1295e6023d8a80a775c25e275d06cd3336826cf61f9b732c"
+      sha256 "9424f03c08b622a134e6dcfb5d4ae09eea6b66a22178fd981663fe262ddf40cf"
     end
 
     on_intel do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-macos-x86_64.tar.gz"
-      sha256 "30406f700c9a7d5817e333a51ba3ea0807bb64228bd5fdb9280484dd2ca75637"
+      sha256 "efe61dcbaf933f3e73ca351851b56ea802d97691bb3ef43102b5f66cf5c3e443"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-linux-arm64.tar.gz"
-      sha256 "fbad5cebc6c960e2a3d87a13b53c648163fbae8fc0e00fdff9e6419b63de1140"
+      sha256 "215ad26b6169960e4641c9b85903152e6fe5e3c0442a7deb6a7b669c230baeaa"
     end
 
     on_intel do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-linux-x86_64.tar.gz"
-      sha256 "d1d68732a3ed307a98c77fd048e5407f11dd178eed6aab0d201428cbb213a8b8"
+      sha256 "a414800cef9b6c99304ea7ae10d495b3525c7c38a8fc969aa579033836a48d33"
     end
   end
 
@@ -41,6 +41,11 @@ class ProjectOrchestrator < Formula
     bin.install "orchestrator"
     bin.install "orch"
     bin.install "mcp_server"
+
+    # ONNX Runtime dylib — present only in macOS x86_64 builds (dynamic linking
+    # because ort-sys has no prebuilt static library for macOS Intel).
+    # Binaries have @executable_path/../lib in their rpath for this layout.
+    lib.install Dir["libonnxruntime*"] unless Dir["libonnxruntime*"].empty?
   end
 
   def caveats
