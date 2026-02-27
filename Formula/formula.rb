@@ -11,29 +11,29 @@ class ProjectOrchestrator < Formula
   desc "AI agent orchestrator with Neo4j knowledge graph, Meilisearch, and Tree-sitter"
   homepage "https://github.com/this-rs/project-orchestrator"
   license "MIT"
-  version "0.0.4"
+  version "0.0.5"
 
   on_macos do
     on_arm do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-macos-arm64.tar.gz"
-      sha256 "de5c429ec24cf26deef8e855b89d40b0ed37206644644fc47ca1db5f9f25a7a9"
+      sha256 "1f4b0595c2922c557cd10c4a96665c28bf3ea3136e176636fcb1ebae4ac65ccd"
     end
 
     on_intel do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-macos-x86_64.tar.gz"
-      sha256 "479febfaa54cb81a33708641a1004606eb496a150a3c829572f6f61998bdaa67"
+      sha256 "317aab98ae3a174ef14b3dc60638b302f2d0d6c8d439c5602932f6cc3d24c42a"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-linux-arm64.tar.gz"
-      sha256 "15ac566a43eb8da35f3816d314817421f6e8916dfcf4af0e7956e1328b66f44a"
+      sha256 "7a3840eebc35adc492b1ddf37f0f68f03bb4c0b5865ee2d970276f888a77f81f"
     end
 
     on_intel do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-linux-x86_64.tar.gz"
-      sha256 "3bfe97a98820259d75911735d843bd97492075a37652589529a526410ad13077"
+      sha256 "04b55a18739bd9946297b27df9a475fb6e3502f322b989dab072273835d89a6c"
     end
   end
 
