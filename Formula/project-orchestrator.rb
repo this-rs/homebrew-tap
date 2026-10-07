@@ -16,24 +16,24 @@ class ProjectOrchestrator < Formula
   on_macos do
     on_arm do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-macos-arm64.tar.gz"
-      sha256 "249d890b1773961b929818b675fc0127d8ead8dfaa74e044b01b9a2386f1597c"
+      sha256 "b1afe82f3c4bec4c4016b99f3cf080172bdfb40dc1b5d9c4ac871e63eaaeb656"
     end
 
     on_intel do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-macos-x86_64.tar.gz"
-      sha256 "7ab3e1fe8af97a3043d2270f4f3806f5fe27e847578f2870d1d44ea848687cb4"
+      sha256 "90680c10fab20b603aff7ddc0d869e069c083d71f5e16b40e126ac1b39e76a76"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-linux-arm64.tar.gz"
-      sha256 "815323db6288c7a34526af22c8b3dc50239207af9cec9c729b881626fd841639"
+      sha256 "6b9b4243a982ec8b139fd6d3a0f39f74397199c868e064e333e4e118ad1189b1"
     end
 
     on_intel do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-linux-x86_64.tar.gz"
-      sha256 "8f7a0d15e5a35729c858e5ca11245b757162f5eb851149ee098a366aec5e8729"
+      sha256 "a36cae743fdd2d3a6336b28a3d12c0d05a9c488f9dbfca770ebcca50f0bb2eb6"
     end
   end
 
