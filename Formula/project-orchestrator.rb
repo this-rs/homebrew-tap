@@ -10,30 +10,30 @@
 class ProjectOrchestrator < Formula
   desc "AI agent orchestrator with Neo4j knowledge graph, Meilisearch, and Tree-sitter"
   homepage "https://github.com/this-rs/project-orchestrator"
-  license "MIT"
-  version "0.0.16"
+  license all_of: ["MIT", "BUSL-1.1"]
+  version "0.0.18"
 
   on_macos do
     on_arm do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-macos-arm64.tar.gz"
-      sha256 "b1afe82f3c4bec4c4016b99f3cf080172bdfb40dc1b5d9c4ac871e63eaaeb656"
+      sha256 "99a2da11da0a1fd04adcac490bfd2607d7d25fdc2d7733677974a31a019453b7"
     end
 
     on_intel do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-macos-x86_64.tar.gz"
-      sha256 "90680c10fab20b603aff7ddc0d869e069c083d71f5e16b40e126ac1b39e76a76"
+      sha256 "543bbbf54aab922e237496af3f707d21604ae3cdb50a7e7eee863a7009dd76ea"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-linux-arm64.tar.gz"
-      sha256 "6b9b4243a982ec8b139fd6d3a0f39f74397199c868e064e333e4e118ad1189b1"
+      sha256 "01cffc6aa4b7090a297834c120f4c699d992c6a26dac7154445d39a405df37c6"
     end
 
     on_intel do
       url "https://github.com/this-rs/project-orchestrator/releases/download/v#{version}/orchestrator-full-#{version}-linux-x86_64.tar.gz"
-      sha256 "a36cae743fdd2d3a6336b28a3d12c0d05a9c488f9dbfca770ebcca50f0bb2eb6"
+      sha256 "c0234e37c6eebb83c18709c25ef3e1edab49b40f5cc488696f9fda3e85e65e72"
     end
   end
 
@@ -41,11 +41,19 @@ class ProjectOrchestrator < Formula
     bin.install "orchestrator"
     bin.install "orch"
     bin.install "mcp_server"
+    # The files, shell and web tools of a native session, next to the server (P6). Absent from
+    # releases made before it shipped.
+    bin.install "nexus-tools" if File.exist?("nexus-tools")
 
     # ONNX Runtime dylib — present only in macOS x86_64 builds (dynamic linking
     # because ort-sys has no prebuilt static library for macOS Intel).
     # Binaries have @executable_path/../lib in their rpath for this layout.
     lib.install Dir["libonnxruntime*"] unless Dir["libonnxruntime*"].empty?
+
+    # Our license (LICENSE, LICENSE-MIT, LICENSE-EE) and the third-party notices of the binaries.
+    # Absent from releases made before they shipped.
+    license_files = Dir["LICENSE*", "THIRD-PARTY-LICENSES.txt"]
+    prefix.install license_files unless license_files.empty?
   end
 
   def caveats
@@ -54,12 +62,16 @@ class ProjectOrchestrator < Formula
         brew services start project-orchestrator
         # or: orchestrator serve
 
-      To configure Claude Code integration:
+      Chat providers: Claude Code is optional. An OpenAI-compatible
+      endpoint, Codex or an ACP agent is added in Settings > Providers.
+
+      Optional, only if you use Claude Code:
         orchestrator setup-claude
-        (auto-configures the MCP server in Claude Code)
+        (registers the MCP server in Claude Code; does nothing without it)
 
       The MCP server binary is at: #{opt_bin}/mcp_server
       The CLI tool is at: #{opt_bin}/orch
+      The native-session tools (nexus-tools) are at: #{opt_bin}/nexus-tools
 
       Before starting, ensure Neo4j and MeiliSearch are running.
     EOS
